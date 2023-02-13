@@ -6,8 +6,8 @@ import Typography from '@mui/material/Typography'
 import PageHeader from 'src/@core/components/page-header'
 
 // ** Demo Components Imports
-import Table from 'src/views/apps/roles/Table'
-import RoleCards from 'src/views/apps/roles/RoleCards'
+// import Table from 'src/views/apps/roles/Table'
+// import RoleCards from 'src/views/apps/roles/RoleCards'
 import Icon from 'src/@core/components/icon'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -67,7 +67,8 @@ const notifications: NotificationsType[] = [
 ]
 
 const RolesComponent = () => {
-  const { settings, saveSettings } = useSettings()
+  const { settings } = useSettings()
+
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>

@@ -18,9 +18,8 @@ import IconButton from '@mui/material/IconButton'
 import InputLabel from '@mui/material/InputLabel'
 import Typography from '@mui/material/Typography'
 import FormControl from '@mui/material/FormControl'
-import CardContent from '@mui/material/CardContent'
 import { DataGrid, GridRowId } from '@mui/x-data-grid'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Select from '@mui/material/Select'
 import NotificationDropdown, {
   NotificationsType
 } from 'src/@core/layouts/components/shared-components/NotificationDropdownEmployerPage'
@@ -30,7 +29,6 @@ import Icon from 'src/@core/components/icon'
 
 // ** Third Party Imports
 import format from 'date-fns/format'
-import DatePicker from 'react-datepicker'
 
 // ** Store & Actions Imports
 import { useDispatch, useSelector } from 'react-redux'
@@ -39,28 +37,23 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
+
+// import { ThemeColor } from 'src/@core/layouts/types'
 import { InvoiceType } from 'src/types/apps/invoiceTypes'
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 // ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
+// import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Custom Components Imports
 import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
 import TableHeader from 'src/views/apps/invoice/list/TableHeader'
 
 // ** Styled Components
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
-
-interface InvoiceStatusObj {
-  [key: string]: {
-    icon: string
-    color: ThemeColor
-  }
-}
 
 interface CustomInputProps {
   dates: Date[]
@@ -163,33 +156,6 @@ const reports: NotificationsType[] = [
   }
 ]
 
-// ** Vars
-const invoiceStatusObj: InvoiceStatusObj = {
-  Sent: { color: 'secondary', icon: 'tabler:circle-check' },
-  Paid: { color: 'success', icon: 'tabler:circle-half-2' },
-  Draft: { color: 'primary', icon: 'tabler:device-floppy' },
-  'Partial Payment': { color: 'warning', icon: 'tabler:chart-pie' },
-  'Past Due': { color: 'error', icon: 'tabler:alert-circle' },
-  Downloaded: { color: 'info', icon: 'tabler:arrow-down-circle' }
-}
-
-// ** renders client column
-const renderClient = (row: InvoiceType) => {
-  if (row.avatar.length) {
-    return <CustomAvatar src={row.avatar} sx={{ mr: 2.5, width: 38, height: 38 }} />
-  } else {
-    return (
-      <CustomAvatar
-        skin='light'
-        color={(row.avatarColor as ThemeColor) || ('primary' as ThemeColor)}
-        sx={{ mr: 2.5, fontSize: '1rem', width: 38, height: 38, fontWeight: 500 }}
-      >
-        {getInitials(row.name || 'John Doe')}
-      </CustomAvatar>
-    )
-  }
-}
-
 const defaultColumns = [
   {
     flex: 0.1,
@@ -283,7 +249,7 @@ const defaultColumns = [
     minHeight: 120,
     field: 'company',
     headerName: 'Group',
-    renderCell: ({ row }: CellType) => ''
+    renderCell: () => ''
   }
 ]
 
@@ -299,7 +265,6 @@ const CustomInput = forwardRef((props: CustomInputProps, ref) => {
 
   return <TextField fullWidth inputRef={ref} {...updatedProps} label={props.label || ''} value={value} />
 })
-/* eslint-enable */
 
 const InvoiceList = () => {
   // ** State
@@ -313,7 +278,7 @@ const InvoiceList = () => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const { settings, saveSettings } = useSettings()
+  const { settings } = useSettings()
   const store = useSelector((state: RootState) => state.invoice)
 
   useEffect(() => {
@@ -328,19 +293,6 @@ const InvoiceList = () => {
 
   const handleFilter = (val: string) => {
     setValue(val)
-  }
-
-  const handleStatusValue = (e: SelectChangeEvent) => {
-    setStatusValue(e.target.value)
-  }
-
-  const handleOnChangeRange = (dates: any) => {
-    const [start, end] = dates
-    if (start !== null && end !== null) {
-      setDates(dates)
-    }
-    setStartDateRange(start)
-    setEndDateRange(end)
   }
 
   const columns = [
@@ -499,54 +451,6 @@ const InvoiceList = () => {
                 </Box>
               }
             />
-            {/* <CardContent>
-              <Grid container spacing={6}>
-                <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth>
-                    <InputLabel id='invoice-status-select'>Invoice Status</InputLabel>
-
-                    <Select
-                      fullWidth
-                      value={statusValue}
-                      sx={{ mr: 4, mb: 2 }}
-                      label='Invoice Status'
-                      onChange={handleStatusValue}
-                      labelId='invoice-status-select'
-                    >
-                      <MenuItem value=''>none</MenuItem>
-                      <MenuItem value='downloaded'>Downloaded</MenuItem>
-                      <MenuItem value='draft'>Draft</MenuItem>
-                      <MenuItem value='paid'>Paid</MenuItem>
-                      <MenuItem value='partial payment'>Partial Payment</MenuItem>
-                      <MenuItem value='past due'>Past Due</MenuItem>
-                      <MenuItem value='sent'>Sent</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <DatePicker
-                    isClearable
-                    selectsRange
-                    monthsShown={2}
-                    endDate={endDateRange}
-                    selected={startDateRange}
-                    startDate={startDateRange}
-                    shouldCloseOnSelect={false}
-                    id='date-range-picker-months'
-                    onChange={handleOnChangeRange}
-                    customInput={
-                      <CustomInput
-                        dates={dates}
-                        setDates={setDates}
-                        label='Invoice Date'
-                        end={endDateRange as number | Date}
-                        start={startDateRange as number | Date}
-                      />
-                    }
-                  />
-                </Grid>
-              </Grid>
-            </CardContent> */}
           </Card>
         </Grid>
         <Grid item xs={12}>
@@ -571,5 +475,5 @@ const InvoiceList = () => {
     </DatePickerWrapper>
   )
 }
-
+/* eslint-enable */
 export default InvoiceList
