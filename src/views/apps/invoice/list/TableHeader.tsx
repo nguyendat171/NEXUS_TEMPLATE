@@ -36,7 +36,7 @@ const TableHeader = (props: TableHeaderProps) => {
           size='small'
           displayEmpty
           defaultValue=''
-          sx={{ mr: 4, mb: 2 }}
+          sx={{ mr: 4, mb: 2, '& >.MuiSelect-select': { minWidth: '2rem !important' } }}
           disabled={selectedRows && selectedRows.length === 0}
           renderValue={selected => (selected.length === 0 ? 'Import' : selected)}
         >
@@ -49,7 +49,7 @@ const TableHeader = (props: TableHeaderProps) => {
           size='small'
           displayEmpty
           defaultValue=''
-          sx={{ mr: 4, mb: 2 }}
+          sx={{ mr: 4, mb: 2, '& >.MuiSelect-select': { minWidth: '2rem !important' } }}
           disabled={selectedRows && selectedRows.length === 0}
           renderValue={selected => (selected.length === 0 ? 'HMRC' : selected)}
         >
@@ -62,7 +62,7 @@ const TableHeader = (props: TableHeaderProps) => {
           size='small'
           displayEmpty
           defaultValue=''
-          sx={{ mr: 4, mb: 2 }}
+          sx={{ mr: 4, mb: 2, '& >.MuiSelect-select': { minWidth: '2rem !important' } }}
           disabled={selectedRows && selectedRows.length === 0}
           renderValue={selected => (selected.length === 0 ? 'User' : selected)}
         >
@@ -75,7 +75,7 @@ const TableHeader = (props: TableHeaderProps) => {
           size='small'
           displayEmpty
           defaultValue=''
-          sx={{ mr: 4, mb: 2 }}
+          sx={{ mr: 4, mb: 2, '& >.MuiSelect-select': { minWidth: '2rem !important' } }}
           disabled={selectedRows && selectedRows.length === 0}
           renderValue={selected => (selected.length === 0 ? 'Export' : selected)}
         >
@@ -89,7 +89,7 @@ const TableHeader = (props: TableHeaderProps) => {
         <TextField
           size='small'
           value={value}
-          sx={{ mr: 4, mb: 2 }}
+          sx={{ mr: 4, mb: 2, '& >.MuiSelect-select': { minWidth: '2rem !important' } }}
           placeholder='Search...'
           onChange={e => handleFilter(e.target.value)}
         />

@@ -160,7 +160,7 @@ const defaultColumns = [
   {
     flex: 0.1,
     field: 'id',
-    minWidth: 100,
+    minWidth: 150,
     headerName: 'Employer ID',
     renderCell: ({ row }: CellType) => (
       <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
@@ -208,7 +208,7 @@ const defaultColumns = [
   },
   {
     flex: 0.1,
-    minWidth: 100,
+    minWidth: 150,
     field: 'total',
     headerName: 'Employees',
     renderCell: ({ row }: CellType) => (
@@ -219,7 +219,7 @@ const defaultColumns = [
   },
   {
     flex: 0.15,
-    minWidth: 140,
+    minWidth: 160,
     field: 'issuedDate',
     headerName: 'Payroll Run Date',
     renderCell: ({ row }: CellType) => (
@@ -377,7 +377,7 @@ const InvoiceList = () => {
                         <MenuItem value='Send'>Send</MenuItem>
                       </Select>
                     </FormControl>
-                    <FormControl variant='standard' sx={{ m: 1, minWidth: 200 }}>
+                    <FormControl variant='standard' sx={{ m: 1, minWidth: 160 }}>
                       <InputLabel id='demo-simple-select-1'>All Client Rules</InputLabel>
                       <Select
                         labelId='demo-simple-select-1'
@@ -392,7 +392,7 @@ const InvoiceList = () => {
                         <MenuItem value='Send'>Send</MenuItem>
                       </Select>
                     </FormControl>
-                    <FormControl variant='standard' sx={{ m: 1, minWidth: 200 }}>
+                    <FormControl variant='standard' sx={{ m: 1, minWidth: 170 }}>
                       <InputLabel id='demo-simple-select-1'>All Client Groups</InputLabel>
                       <Select
                         labelId='demo-simple-select-1'
@@ -421,7 +421,7 @@ const InvoiceList = () => {
                     size='small'
                     displayEmpty
                     defaultValue=''
-                    sx={{ ml: 2, '& .MuiSelect-select': { minWidth: '1.5rem !important' } }}
+                    sx={{ ml: 2, '& >.MuiSelect-select': { minWidth: '1.5rem !important' } }}
                     disabled={selectedRows && selectedRows.length === 0}
                     renderValue={selected => (selected.length === 0 ? 'AE' : selected)}
                   >
