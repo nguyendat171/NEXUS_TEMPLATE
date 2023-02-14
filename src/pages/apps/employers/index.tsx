@@ -421,7 +421,7 @@ const InvoiceList = () => {
                     size='small'
                     displayEmpty
                     defaultValue=''
-                    sx={{ ml: 2, '& >.MuiSelect-select': { minWidth: '1.5rem !important' } }}
+                    sx={{ ml: 2, '& >.MuiSelect-select.MuiSelect-outlined': { minWidth: '1.5rem !important' } }}
                     disabled={selectedRows && selectedRows.length === 0}
                     renderValue={selected => (selected.length === 0 ? 'AE' : selected)}
                   >
